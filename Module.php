@@ -15,6 +15,7 @@ namespace tripdashboard;
 use Canopy\Request;
 use Canopy\Response;
 use Canopy\Server;
+use tripdashboard\Controller\Controller;
 
 $defineFile = PHPWS_SOURCE_DIR . 'mod/tripdashboard/config/defines.php';
 if (is_file($defineFile)) {

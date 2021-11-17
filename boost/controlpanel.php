@@ -7,7 +7,7 @@
 $link[] = array(
     'label' => 'Trip Dashboard',
     'restricted' => TRUE,
-    'url' => 'tripdashboard/',
+    'url' => 'tripdashboard/Search',
     'description' => 'Trip Student Dashboard', 'Gets reports from multiple Trip Track installations.',
     'image' => 'travel.png',
     'tab' => 'content');

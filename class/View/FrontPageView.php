@@ -14,17 +14,27 @@ declare(strict_types=1);
 
 namespace tripdashboard\View;
 
-class FrontPageView
+use phpws2\Template;
+
+class FrontPageView extends AbstractView
 {
 
     public static function admin()
     {
-        return 'admin';
+        return SearchView::form();
     }
 
     public static function user()
     {
-        return 'user';
+        $auth = \Current_User::getAuthorization();
+        if (!empty($auth->login_link)) {
+            $url = $auth->login_link;
+        } else {
+            $url = 'index.php?module=users&action=user&command=login_page';
+        }
+        $template = new Template(['url' => $url]);
+        $template->setModuleTemplate('tripdashboard', 'Login.html');
+        return $template->get();
     }
 
 }
