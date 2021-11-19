@@ -9,11 +9,9 @@ const StudentInfo = ({student, searchResult}) => {
       <div>
         <h3>Student</h3>
         <p>
-          <strong>
-            {student.firstName} {student.lastName} |{' '}
-            <a href="mailto:{student.email}">{student.email}</a> |{' '}
-            <a href="tel:+1{student.phone}">{student.phone}</a>
-          </strong>
+          {student.firstName} {student.lastName} |{' '}
+          <a href="mailto:{student.email}">{student.email}</a> |{' '}
+          <a href="tel:+1{student.phone}">{student.phone}</a>
         </p>
         <hr />
         <h3>Upcoming trips</h3>
