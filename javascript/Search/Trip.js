@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 
 const Trip = ({trip}) => {
   const {
+    approved,
     contactName,
     contactEmail,
     contactPhone,
@@ -27,6 +28,11 @@ const Trip = ({trip}) => {
   return (
     <div>
       <div className="mb-3">
+        {approved === 1 ? (
+          <span className="float-right badge badge-success">Approved</span>
+        ) : (
+          <span className="float-right badge badge-danger">Not approved</span>
+        )}
         <h4>Submitted</h4>
         <p>
           <strong>Submitted by</strong>:{' '}
