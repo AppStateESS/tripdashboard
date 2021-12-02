@@ -1,0 +1,31 @@
+dist: xenial
+os: linux
+language: php
+php: "7.3"
+script:
+  - ".travis-build/phplint ."
+
+jobs:
+  include:
+  - language: node_js
+    node_js: 16
+
+before_install:
+- npm i -g npm@v8.1.2
+install:
+- npm install
+after_success:
+- npm run build
+- rm -rf node_modules
+- tar -czf tripdashboard.tar.gz *
+deploy:
+  provider: releases
+  skip_cleanup: true
+  token:
+    secure: "CPKWY9qJxwCnxfq40k7HNOv4xvCiexXGC3Z8CqDjC4tCeJRhp1h6+KPjv2igOio2qbsU9u8BGgdiCJTHDQGGwfKGtvvNXmwP8/gH+ha6Nl0sxOTIb46xt78Yghvr+5Km8paRgpQQaTEkTv+Dq3VR5hn9HkZvyW2XK1xG2z0uFDbGzD4SX1+rKkkZwo/z/THFlgyAhT84oC+Z1EZa5eKO2hdWyM8ryMzCv0BWAU6KcBIxF6HAIZU5SvB9VA0+lmEfsTNgbIB+74iXQmsySOq1/TEGFmTeV8gEOEgCx/MQgBP+XMzK2IHGOvnaoKsvLJoxrYZ60hwC50vDvFLgcyvOQyAZWLOMcKv/LjCHAkrgaPXgiHrQZ/EQcKSK5R1tJCuU49QAv6owSuctudnWm1X+2kYnDh7ycA/7we3WxIv1V0v+m7gIDA3lG7/yrOhkElCCEXiA4ya2Q1k33onpai1QlFq0JhhdoRJPbZUv3skRaqyDX9GEVA8z1hO17Xwdxes4qGJzRE7mHbk3G2+mPnyZXb+qHGiqr2/kEl418IPFp5jIMGiuyfYGChRenCehy0os8gXlPlyfYJ6QtxYMq9VnnrkU2uHtFe2Ju8Pu3wsCllhtwa1xFc/iUo13suI2QJybpp/NFjpMOeg6fq4HgMWRyrpaoZAAu+oCU/PoyMQ4CM0="
+  file: tripdashboard.tar.gz
+  overwrite: true
+  on:
+    repo: AppStateESS/tripdashboard
+    branch: master
+    tags: true
