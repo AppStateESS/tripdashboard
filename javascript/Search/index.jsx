@@ -10,6 +10,7 @@ const Search = () => {
   const [bannerId, setBannerId] = useState('')
   const [searchResult, setSearchResult] = useState(null)
   const [student, setStudent] = useState(null)
+  const [notFound, setNotFound] = useState(false)
   const idInput = useRef()
 
   const updateBannerId = (bannerId) => {
@@ -31,12 +32,17 @@ const Search = () => {
   }, [bannerId])
 
   const searchForStudent = () => {
+    setNotFound(false)
     setLoading(true)
     setStudent(null)
     getItem('Search/find', {studentBannerId: bannerId}).then((response) => {
       const {data} = response
-      setSearchResult(data.trips)
-      setStudent(data.student)
+      if (data.student === false) {
+        setNotFound(true)
+      } else {
+        setSearchResult(data.trips)
+        setStudent(data.student)
+      }
       setLoading(false)
     })
   }
@@ -44,6 +50,7 @@ const Search = () => {
   const resetSearch = () => {
     updateBannerId('')
     setSearchResult('')
+    setNotFound(false)
     setStudent(null)
     idInput.current.focus()
   }
@@ -151,6 +158,11 @@ const Search = () => {
       <div className="col-12">
         {student && (
           <StudentInfo student={student} searchResult={searchResult} />
+        )}
+        {notFound && (
+          <div className="alert alert-danger">
+            This student could not be found.
+          </div>
         )}
         {backToTop}
       </div>
