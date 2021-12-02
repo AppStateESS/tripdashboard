@@ -15,6 +15,9 @@ const StudentInfo = ({student, searchResult}) => {
         </p>
         <hr />
         <h3>Upcoming trips</h3>
+        {searchResult.length === 0 ? (
+          <div className="alert alert-info">No current trips found.</div>
+        ) : null}
         <div className="row">
           {searchResult.map((trip, key) => {
             return (
